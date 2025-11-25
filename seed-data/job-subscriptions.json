@@ -1,0 +1,23 @@
+[
+  { "email": "luis.martinez92@example.com", "searchPattern": null },
+  { "email": "carla.dev88@example.com", "searchPattern": null },
+  { "email": "andres.rojas@example.com", "searchPattern": null },
+  { "email": "sofia.perez@example.com", "searchPattern": null },
+  { "email": "marco.silva@example.com", "searchPattern": null },
+  { "email": "valentina.gomez@example.com", "searchPattern": null },
+  { "email": "jorge.lopez@example.com", "searchPattern": null },
+  { "email": "ana.torres@example.com", "searchPattern": null },
+  { "email": "federico.ramirez@example.com", "searchPattern": null },
+  { "email": "paula.riera@example.com", "searchPattern": null },
+  { "email": "maria.estrada@example.com", "searchPattern": null },
+  { "email": "rodrigo.nieves@example.com", "searchPattern": null },
+  { "email": "clara.santos@example.com", "searchPattern": null },
+
+  { "email": "dev.juan@example.com", "searchPattern": "Java" },
+  { "email": "front.sara@example.com", "searchPattern": "Front" },
+  { "email": "data.lucas@example.com", "searchPattern": "Data" },
+  { "email": "devops.alex@example.com", "searchPattern": "DevOps" },
+  { "email": "stack.emma@example.com", "searchPattern": "Stack" },
+  { "email": "cloud.mike@example.com", "searchPattern": "Cloud" },
+  { "email": "ai.sophie@example.com", "searchPattern": "AI" }
+]

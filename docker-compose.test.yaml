@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  postgres-db-test:
+    image: 'postgres:15'
+    restart: 'always'
+    ports:
+      - '${DB_PORT}:5432'
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./postgres-test:/var/lib/postgresql/data
+
+  api-test:
+    command: >
+      sh -c "npm run test:e2e"
+    depends_on:
+      - postgres-db-test
+    ports:
+      - ${PORT}:${PORT}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: postgres-db-test
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      PORT: ${PORT}
+    restart: unless-stopped

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Jr Java Developer",
+    "salary": 55000,
+    "country": "Argentina",
+    "skills": ["Java", "Spring", "SQL"]
+  },
+  {
+    "name": "Frontend Developer",
+    "salary": 60000,
+    "country": "USA",
+    "skills": ["JavaScript", "React", "CSS"]
+  },
+  {
+    "name": "Data Scientist",
+    "salary": 80000,
+    "country": "Spain",
+    "skills": ["Python", "Machine Learning", "Statistics"]
+  },
+  {
+    "name": "DevOps Engineer",
+    "salary": 75000,
+    "country": "Argentina",
+    "skills": ["Docker", "Kubernetes", "AWS"]
+  },
+  {
+    "name": "Full Stack Developer",
+    "salary": 70000,
+    "country": "Argentina",
+    "skills": ["Node.js", "Angular", "MongoDB"]
+  },
+  {
+    "name": "Cybersecurity Analyst",
+    "salary": 72000,
+    "country": "Spain",
+    "skills": ["Security", "Networking", "Python"]
+  },
+  {
+    "name": "Mobile App Developer",
+    "salary": 65000,
+    "country": "Spain",
+    "skills": ["Flutter", "Dart", "Firebase"]
+  },
+  {
+    "name": "Cloud Solutions Architect",
+    "salary": 90000,
+    "country": "USA",
+    "skills": ["AWS", "Azure", "Microservices"]
+  },
+  {
+    "name": "AI Engineer",
+    "salary": 95000,
+    "country": "USA",
+    "skills": ["TensorFlow", "Python", "Machine Learning"]
+  },
+  {
+    "name": "Blockchain Developer",
+    "salary": 85000,
+    "country": "USA",
+    "skills": ["Solidity", "Ethereum", "Cryptography"]
+  }
+]

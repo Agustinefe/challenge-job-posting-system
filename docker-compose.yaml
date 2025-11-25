@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  postgres-db:
+    image: 'postgres:15'
+    restart: 'always'
+    ports:
+      - '${DB_PORT}:5432'
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
+  redis-task-queue:
+    image: redis:7.4-alpine
+    restart: always
+    ports:
+      - '${TASK_QUEUE_PORT}:6379'
+    environment:
+      REDIS_PASSWORD: ${TASK_QUEUE_PASSWORD}
+    command: >
+      redis-server
+      --save 20 1
+      --loglevel warning
+      --requirepass ${TASK_QUEUE_PASSWORD}
+    volumes:
+      - ./redis:/data
+#  api:
+#    command: >
+#      sh -c "npm run start:prod"
+#    depends_on:
+#      - postgres-db
+#    ports:
+#      - ${PORT}:${PORT}
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    environment:
+#      DB_PASSWORD: ${DB_PASSWORD}
+#      DB_NAME: ${DB_NAME}
+#      DB_HOST: postgres-db
+#      DB_PORT: ${DB_PORT}
+#      DB_USERNAME: ${DB_USERNAME}
+#      PORT: ${PORT}
+#    restart: unless-stopped
