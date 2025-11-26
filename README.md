@@ -147,7 +147,6 @@ After a job is created, an asynchronic task is dispatched and consumed by a Redi
 - Jobs could be filtered by skill(s), to improve the job searching experience.
 - Jobs could return their ID, to facilitate a potential job applying.
 - Transaction rollback should be tested.
-- Finding jobs by name slug should be tested.
 - Error handling could be improved (I.E handle already existing user error)
 - The ORM is being used with Synchronize instead of migrations. Migrations would be the best option.
 - Continuous integration and tests coverage could be made using CircleCI and CodeCov (since it's not my repository, I prefer not to link it with external tools).

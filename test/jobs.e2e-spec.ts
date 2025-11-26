@@ -110,7 +110,25 @@ describe('UserController (e2e)', () => {
         .expect(200);
 
       const responseBody = response.body as GetJobDto[];
-      expect(responseBody.every((j) => j.salary > 30000)).toBe(true);
+      expect(responseBody.every((j) => j.salary >= 30000)).toBe(true);
+    });
+
+    it('should return only the jobs with salary below 60000', async () => {
+      jest
+        .spyOn(jobberwockyExternalSource, 'getJobs')
+        .mockReturnValue(Promise.resolve({}));
+      await context.seedTestApp();
+      const query: SearchJobsQueryDto = {
+        maxSalary: 60000,
+      };
+
+      const response = await request(context.app.getHttpServer())
+        .get('/jobs')
+        .query(query)
+        .expect(200);
+
+      const responseBody = response.body as GetJobDto[];
+      expect(responseBody.every((j) => j.salary <= 60000)).toBe(true);
     });
 
     it('should throw Bad Request if minSalary is more than max salary', async () => {
