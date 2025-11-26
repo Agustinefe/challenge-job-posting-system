@@ -11,7 +11,7 @@ import { GetJobDto } from '../src/jobs/dto/get-job.dto';
 import { JobberwockyExternalSource } from '../src/jobs/repositories/jobberwocky.external';
 import { slugify } from '../src/common/utils/slugify';
 
-describe('UserController (e2e)', () => {
+describe('JobController (e2e)', () => {
   let context: TestHelper;
   let jobsRepository: Repository<Job>;
   let skillsRepository: Repository<Skill>;
@@ -38,7 +38,7 @@ describe('UserController (e2e)', () => {
   });
 
   describe('GET /jobs', () => {
-    it('should return an empty array when no users exist', async () => {
+    it('should return an empty array when no jobs exist', async () => {
       jest
         .spyOn(jobberwockyExternalSource, 'getJobs')
         .mockReturnValue(Promise.resolve({}));

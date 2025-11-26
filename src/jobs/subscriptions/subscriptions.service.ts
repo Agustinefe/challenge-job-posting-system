@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateJobSubscriptionDto } from './dto/create-job-subscription.dto';
 import { JobSubscriptionsRepository } from './repositories/job-subscriptions.repository';
-import { JobSubscription } from './entities/job-subscription.entity';
 import { GetJobSubscriptionQueryDto } from './dto/get-job-subscriptions-query.dto';
+import { JobSubscriptionDto } from './dto/job-subscription.dto';
 
 @Injectable()
 export class SubscriptionsService {
@@ -10,14 +10,14 @@ export class SubscriptionsService {
     private readonly jobSubscriptionsRepository: JobSubscriptionsRepository,
   ) { }
 
-  async create(data: CreateJobSubscriptionDto): Promise<JobSubscription> {
+  async create(data: CreateJobSubscriptionDto): Promise<JobSubscriptionDto> {
     return await this.jobSubscriptionsRepository.create(data);
   }
 
   async findAll(
     query: GetJobSubscriptionQueryDto,
     pagination?: { offset: number; limit: number },
-  ): Promise<JobSubscription[]> {
+  ): Promise<JobSubscriptionDto[]> {
     return this.jobSubscriptionsRepository.findMany(
       query.searchPattern ?? null,
       pagination,

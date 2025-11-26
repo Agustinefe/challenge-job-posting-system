@@ -1,7 +1,7 @@
 import { OmitType } from '@nestjs/swagger';
-import { JobSubscription } from '../entities/job-subscription.entity';
+import { JobSubscriptionDto } from './job-subscription.dto';
 
-export class CreateJobSubscriptionDto extends OmitType(JobSubscription, [
+export class CreateJobSubscriptionDto extends OmitType(JobSubscriptionDto, [
   'id',
   'searchPattern',
 ]) {

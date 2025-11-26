@@ -9,14 +9,16 @@ import {
 import { SubscriptionsService } from './subscriptions.service';
 import { GetJobSubscriptionQueryDto } from './dto/get-job-subscriptions-query.dto';
 import { CreateJobSubscriptionDto } from './dto/create-job-subscription.dto';
-import { JobSubscription } from './entities/job-subscription.entity';
+import { JobSubscriptionDto } from './dto/job-subscription.dto';
 
-@Controller('subscriptions')
+@Controller('jobs/subscriptions')
 export class SubscriptionsController {
   constructor(private readonly subscriptionsService: SubscriptionsService) { }
 
   @Post()
-  create(@Body() createSubscriptionDto: CreateJobSubscriptionDto) {
+  create(
+    @Body() createSubscriptionDto: CreateJobSubscriptionDto,
+  ): Promise<JobSubscriptionDto> {
     return this.subscriptionsService.create(createSubscriptionDto);
   }
 
@@ -29,26 +31,7 @@ export class SubscriptionsController {
       }),
     )
     queryDto: GetJobSubscriptionQueryDto,
-  ): Promise<JobSubscription[]> {
+  ): Promise<JobSubscriptionDto[]> {
     return this.subscriptionsService.findAll(queryDto);
   }
-
-  /* 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subscriptionsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateSubscriptionDto: UpdateSubscriptionDto,
-  ) {
-    return this.subscriptionsService.update(+id, updateSubscriptionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subscriptionsService.remove(+id);
-  } */
 }
