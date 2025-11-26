@@ -5,12 +5,16 @@
 - Jobs
   - Create a new Job
   - List the existing Jobs (from both local and external sources)
+- Subscriptions
+  - Create a job subscription
+  - List the subscriptions
+  - Receive notifications when a new job is created
 
 ## Pre-Requisites
 
 - Docker installed without SUDO Permission
 - Docker compose installed without SUDO
-- Ports free: 3000 and 5432
+- Ports free: 3000, 5432 and 6379
 - [Jobberwocky external source](https://github.com/avatureta/jobberwocky-extra-source-v2) up and running.
 
 ## How to run the APP
@@ -39,6 +43,7 @@ npm run seed
 - Node: Node20.18.2
 - TypeORM
 - Postgres
+- Redis
 - Jest
 - Docker / Docker compose
 
@@ -95,9 +100,27 @@ Example:
 },
 ```
 
+#### Job Subscription
+
+| Field name    | Type              |             Meaning              |
+| ------------- | ----------------- | :------------------------------: |
+| id            | uuid              |   The subscription identifier    |
+| email         | string            |       The subscriber email       |
+| searchPattern | string (nullable) | The search pattern to match jobs |
+
+Example:
+
+```json
+{
+  "id": "3ae1c05c-0d9a-4101-8ba6-a6a416ea71ee",
+  "email": "dev.juan@example.com",
+  "searchPattern": "Java"
+},
+```
+
 ### Creating a Job
 
-Since a job always contains a list of skills required, the first step is to check which skills already exists in our DB, and then create and save the new ones. Once the Skill list is built, the Job entity is created and stored in the DB.
+Since a job always contains a list of skills required, the first step is to check which skills already exists in our DB, and then create and save the new ones. Once the Skill list is built, the Job entity is created and stored in the DB. Creating a job will trigger the notification of the subscribed users.
 
 Considering that any of this steps can fail, a Transaction Manager is instantiated to collect rollback compensations that would be executed if some step fails.
 
@@ -110,6 +133,14 @@ The request will fail (and throw error) only if all sources fail. This mean that
 Since the external source does not retrieve any job identification, the local jobs are returned without identification.
 
 Since the external source can't be filtered by skills, our endpoint doesn't include this filter.
+
+### Subscribing to job alerts
+
+Users can register their emails to receive alerts when a job is created. Optionally, they can include a search pattern to match only the preferred jobs. If the pattern is NULL, users will be notified about all the new job postings.
+
+### Notifying users about new jobs
+
+After a job is created, an asynchronic task is dispatched and consumed by a Redis Worker to start sending the emails to the subscribed users. Since there could be millons of subscribers, this task could be compute intensive and inefficient to run in a single transaction. Therefore, the task is processed in batches to be done when computing power is available. This also improve the process tracking since every notification log is stored in the DB. Rvery batch contains an idempotency key that identifies it, and if a notification has already been sent, it won't be sent again.
 
 ## Areas to improve
 
